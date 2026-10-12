@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>32-bit Multivariate Feistel Cipher</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<main class="container">
+
+    <header>
+
+        <h1>32-bit Multivariate Feistel Cipher</h1>
+
+        <p>
+            A 32-bit Feistel construction using
+            8-bit multivariate polynomial systems loaded from the app data folder.
+        </p>
+
+    </header>
+
+
+    <!-- MULTIVARIATE FUNCTION -->
+
+    <section class="card">
+
+        <h2>Multivariate Function</h2>
+
+        <p class="description">
+
+            The 16-bit Feistel round input is split into two
+            8-bit chunks. Each chunk is transformed through the
+            selected JSON polynomial system for that round.
+
+        </p>
+
+
+        <div class="function-info">
+
+            <div>
+                <strong>Input</strong>
+                <span>8 bits</span>
+            </div>
+
+            <div>
+                <strong>Output</strong>
+                <span>8 bits</span>
+            </div>
+
+            <div>
+                <strong>Field</strong>
+                <span>GF(2)</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ENCRYPTION INPUT -->
+
+    <section class="card">
+
+        <h2>Encryption</h2>
+
+
+        <label>
+
+            Plaintext / Word
+
+            <span>bits or text</span>
+
+        </label>
+
+        <input
+            id="plaintext"
+            maxlength="64"
+            value="OMAN"
+            placeholder="Enter bits or a word like HELLO"
+        >
+
+
+        <label>
+
+            Number of Rounds
+
+        </label>
+
+        <div class="round-selector">
+
+            <input
+                id="rounds"
+                type="range"
+                min="1"
+                max="32"
+                value="8"
+            >
+
+            <div class="round-selector-row">
+
+                <input
+                    id="rounds-number"
+                    type="number"
+                    min="1"
+                    max="32"
+                    value="8"
+                >
+
+                <span id="rounds-value">8 rounds</span>
+
+            </div>
+
+        </div>
+
+
+        <button id="encrypt-button">
+            Encrypt
+        </button>
+
+    </section>
+
+
+    <!-- CIPHERTEXT -->
+
+    <section
+        id="result"
+        class="card hidden"
+    >
+
+        <h2>Ciphertext</h2>
+
+        <div
+            id="ciphertext"
+            class="output"
+        ></div>
+
+        <div class="word-grid">
+
+            <div class="word-box">
+                <span>Before</span>
+                <strong id="plaintext-word">0</strong>
+                <small id="plaintext-ascii">-</small>
+            </div>
+
+            <div class="word-box">
+                <span>After</span>
+                <strong id="ciphertext-word">0</strong>
+                <small id="ciphertext-ascii">-</small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>Decryption</h2>
+
+        <label>
+            Ciphertext to decrypt
+            <span>32-bit binary value</span>
+        </label>
+
+        <input
+            id="decrypt-ciphertext"
+            maxlength="64"
+            placeholder="Paste the ciphertext here"
+        >
+
+        <button id="decrypt-button" type="button">
+            Decrypt
+        </button>
+
+        <div id="decryption-result" class="hidden output-block">
+            <div>
+                <strong>Plaintext bits</strong>
+                <code id="decrypted-plaintext"></code>
+            </div>
+            <div>
+                <strong>ASCII</strong>
+                <span id="decrypted-ascii"></span>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- ROUND VISUALIZATION -->
+
+    <section
+        id="rounds-section"
+        class="card hidden"
+    >
+
+        <h2>Feistel Construction</h2>
+
+        <div id="rounds-container"></div>
+
+    </section>
+
+</main>
+
+
+<script
+    src="{{ url_for('static', filename='js/app.js') }}"
+></script>
+
+</body>
+
+</html>
